@@ -1,0 +1,10 @@
+/__pypackages__
+/**/__pycache__
+/.mypy_cache
+/.pytest_cache
+/build
+/dist
+/src/data/conf.d/**/conf.yaml
+
+.pdm.toml
+.sts.env

@@ -1,0 +1,6 @@
+init_config:
+
+instances:
+  - instance_url: "<%= _.snakeCase(agentCheckName)%>"
+    instance_type: "<%= _.snakeCase(agentCheckName)%>_check"
+    collection_interval: 300

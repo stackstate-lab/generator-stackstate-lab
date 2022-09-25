@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "stackstate-lab generate",
+      "program": "~/.nvm/versions/node/v17.4.0/bin/yo",
+      "timeout": 100000,
+      "args": [
+          "stackstate-lab",
+          "-q",
+          "-t",
+          "agent-check"
+          ],
+      "cwd": "${workspaceFolder}/temp/",
+      "console": "integratedTerminal"
+  }
+  ]
+}

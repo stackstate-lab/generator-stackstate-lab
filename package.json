@@ -1,0 +1,65 @@
+{
+  "name": "generator-stackstate-lab",
+  "version": "0.1.0",
+  "description": "Yeoman generator for StackState extensions and customizations.",
+  "keywords": [
+    "yeoman-generator",
+    "stackstate",
+    "stackstate studio"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stackstate-lab/generator-stackstate-lab.git"
+  },
+  "bugs": {
+    "url": "https://github.com/stackstate-lab/generator-stackstate-lab/issues"
+  },
+  "main": "./generators/app/index.js",
+  "homepage": "http://www.stackstate.com",
+  "license": "MIT",
+  "author": {
+    "name": "StackState Lab Team",
+    "url": "https://github.com/stackstate-lab"
+  },
+  "engines": {
+    "node": ">=16.10.0"
+  },
+  "scripts": {},
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "lodash": "^4.17.21",
+    "sanitize-filename": "^1.6.3",
+    "yeoman-generator": "^5.7.0 ",
+    "yosay": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^16.11.6",
+    "@types/yeoman-generator": "^5.2.10",
+    "@types/yeoman-test": "^4.0.3",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.6.0",
+    "eslint-config-xo": "^0.27.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "mocha": "^10.0.0",
+    "prettier": "^1.19.1",
+    "yeoman-assert": "^3.1.1",
+    "yeoman-environment": "^3.9.1",
+    "yeoman-test": "^6.3.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "xo",
+      "prettier"
+    ],
+    "env": {
+      "node": true
+    },
+    "rules": {
+      "prettier/prettier": "warn"
+    },
+    "plugins": [
+      "prettier"
+    ]
+  }
+}
