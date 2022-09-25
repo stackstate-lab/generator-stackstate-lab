@@ -192,10 +192,6 @@ module.exports = class extends Generator {
     this.log(
       "Your project " + this.projectConfig.projectName + " has been created!"
     );
-    this.log("");
-    this.log("Run 'pdm install' to futher complete installation.");
-    this.log("");
-
     if (this.projectGenerator.endMessage) {
       this.projectGenerator.endMessage(this, this.projectConfig);
     }

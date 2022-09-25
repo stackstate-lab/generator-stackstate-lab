@@ -1,5 +1,5 @@
 const prompts = require("./prompts");
-const _ = require("lodash")
+const _ = require("lodash");
 
 module.exports = {
   id: "project-agent-check",
@@ -43,6 +43,18 @@ module.exports = {
         "conf.d",
         `${_.snakeCase(projectConfig.agentCheckName)}.d`,
         "conf.yaml.example"
+      ),
+      context
+    );
+
+    generator.fs.copyTpl(
+      generator.templatePath("basic", "conf.yaml.example"),
+      generator.destinationPath(
+        "src",
+        "data",
+        "conf.d",
+        `${_.snakeCase(projectConfig.agentCheckName)}.d`,
+        "conf.yaml"
       ),
       context
     );
@@ -104,13 +116,23 @@ module.exports = {
     }
 
     projectConfig.installDependencies = true;
-  }
+  },
 
-  // /**
-  //  * @param {import('yeoman-generator')} generator
-  //  * @param {Object} projectConfig
-  //  */
-  // endMessage: (generator, projectConfig) => {
-  //     generator.log("");
-  // }
+  /**
+   * @param {import('yeoman-generator')} generator
+   * @param {Object} projectConfig
+   */
+  endMessage: (generator, _) => {
+    generator.log("");
+    generator.log("To futher complete installation, run: ");
+    generator.log("    pdm install");
+    generator.log("    pdm test");
+    generator.log("    pdm buildAgent");
+    generator.log("    pdm check");
+    generator.log(
+      "Before running the agent, make sure to set connection details in '.sts.env'"
+    );
+    generator.log("    pdm serve");
+    generator.log("");
+  }
 };

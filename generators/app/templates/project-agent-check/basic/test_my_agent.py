@@ -22,7 +22,7 @@ def test_check():
     snapshot = topology.get_snapshot("")
     components = snapshot["components"]
     relations = snapshot["relations"]
-    app_id = "urn:myapp:/INTERNETBANKING"
+    app_id = "urn:myapp:INTERNETBANKING"
     host_id = "urn:host:/SRV001"
     assert len(components) == 2
     assert_component(components, app_id)

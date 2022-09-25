@@ -52,7 +52,7 @@ checks_base = [
 #######################################################################################################################
 
 [tool.pdm.scripts]
-post_install = "pip install -e \"git+https://github.com/StackVista/stackstate-agent-integrations.git@1.22.0#egg=stackstate_checks_base&subdirectory=stackstate_checks_base\" -t \"./__pypackages__/3.9/lib\" --src \"./__pypackages__/3.9/src\" --upgrade"
+post_install = "pip install \"git+https://github.com/StackVista/stackstate-agent-integrations.git@1.22.0#egg=stackstate_checks_base&subdirectory=stackstate_checks_base\" -t \"./__pypackages__/3.9/lib\" --src \"./__pypackages__/3.9/src\" --upgrade"
 pre_build = {composite = ["codeStyle", "test", "package"]}
 serve = {call = "tasks.agent:run_agent"}
 check = {call = "tasks.agent:run_check('<%=_.snakeCase(agentCheckName)%>')"}

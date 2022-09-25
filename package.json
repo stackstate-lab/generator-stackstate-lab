@@ -1,7 +1,7 @@
 {
   "name": "generator-stackstate-lab",
   "version": "0.1.0",
-  "description": "Yeoman generator for StackState extensions and customizations.",
+  "description": "Yeoman generator for StackState extension and customisation projects.",
   "keywords": [
     "yeoman-generator",
     "stackstate",
