@@ -5,6 +5,6 @@
 /build
 /dist
 /src/data/conf.d/**/conf.yaml
-
+/.idea
 .pdm.toml
 .sts.env
