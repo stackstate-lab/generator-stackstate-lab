@@ -12,6 +12,7 @@
     "-p",
     "no:logging"
   ],
+  "python.testing.pytestPath": "${workspaceFolder}/__pypackages__/3.9/bin/pytest",
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,
   "python.envFile": "${workspaceFolder}/.env"

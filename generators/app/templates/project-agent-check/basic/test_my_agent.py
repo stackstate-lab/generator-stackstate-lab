@@ -1,6 +1,6 @@
 from typing import List, Dict, Any
 
-from <%= _.snakeCase(agentCheckName)%> import InstanceInfo, <%= _.startCase(agentCheckName)%>Check
+from <%= _.snakeCase(agentCheckName)%> import InstanceInfo, <%= _.startCase(agentCheckName).replaceAll(" ", "")%>Check
 
 from stackstate_checks.stubs import topology
 import yaml
@@ -16,7 +16,7 @@ def test_check():
     instance_dict = setup_test_instance()
     instance = InstanceInfo(instance_dict)
     instance.validate()
-    check = <%= _.startCase(agentCheckName)%>Check("test", {}, {}, instances=[instance_dict])
+    check = <%= _.startCase(agentCheckName).replaceAll(" ", "")%>Check("test", {}, {}, instances=[instance_dict])
     check._init_health_api()
     check.check(instance)
     snapshot = topology.get_snapshot("")

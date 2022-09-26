@@ -16,7 +16,7 @@ class InstanceInfo(Model):
     collection_interval: int = IntType(default=120)
 
 
-class <%= _.startCase(agentCheckName)%>Check(AgentCheck):
+class <%= _.startCase(agentCheckName).replaceAll(" ", "")%>Check(AgentCheck):
     INSTANCE_SCHEMA = InstanceInfo
 
     def __init__(self, name, init_config, agentConfig, instances=None):
