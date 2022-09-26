@@ -96,6 +96,57 @@ exports.askForProjectDescription = (generator, projectConfig) => {
  * @param {import('yeoman-generator')} generator
  * @param {Object} projectConfig
  */
+exports.askForStackStateReceiverUrl = (generator, projectConfig) => {
+  let stsUrl = generator.options.url;
+  if (stsUrl) {
+    projectConfig.stsUrl = stsUrl;
+    return Promise.resolve();
+  }
+
+  if (generator.options.quick) {
+    projectConfig.stsUrl = "https://stackstate.mycompany.com/receiver/stsAgent";
+    return Promise.resolve();
+  }
+
+  return generator
+    .prompt({
+      type: "input",
+      name: "url",
+      message: "What's the url to the StackState Receiver Api?",
+      default: "https://stackstate.mycompany.com/receiver/stsAgent"
+    })
+    .then(answer => {
+      projectConfig.url = answer.url;
+    });
+};
+
+exports.askForStackStateApiKey = (generator, projectConfig) => {
+  let stsApiKey = generator.options.apiKey;
+  if (stsApiKey) {
+    projectConfig.stsApiKey = stsApiKey;
+    return Promise.resolve();
+  }
+
+  if (generator.options.quick) {
+    projectConfig.stsApiKey = "xxxx";
+    return Promise.resolve();
+  }
+
+  return generator
+    .prompt({
+      type: "input",
+      name: "apiKey",
+      message: "What's the api key for the StackState server?",
+      default: "xxxx"
+    })
+    .then(answer => {
+      projectConfig.stsApiKey = answer.apiKey;
+    });
+};
+/**
+ * @param {import('yeoman-generator')} generator
+ * @param {Object} projectConfig
+ */
 exports.askForGit = (generator, projectConfig) => {
   let gitInit = generator.options.gitInit;
   if (typeof gitInit === "boolean") {

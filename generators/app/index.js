@@ -48,6 +48,17 @@ module.exports = class extends Generator {
       description: "Description of the project"
     });
 
+    this.option("url", {
+      type: String,
+      description:
+        "StackState receiver api url. Example 'https://stackstate.mycompany.com/receiver/stsAgent'"
+    });
+
+    this.option("apiKey", {
+      type: String,
+      description: "StackState Api Key"
+    });
+
     this.option("agentCheckName", {
       type: String,
       alias: "acn",

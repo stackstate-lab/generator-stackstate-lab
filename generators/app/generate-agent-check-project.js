@@ -14,6 +14,8 @@ module.exports = {
     await prompts.askForProjectName(generator, projectConfig);
     await prompts.askForProjectDescription(generator, projectConfig);
     await prompts.askForAgentCheckName(generator, projectConfig);
+    await prompts.askForStackStateReceiverUrl(generator, projectConfig);
+    await prompts.askForStackStateApiKey(generator, projectConfig);
     await prompts.askForGit(generator, projectConfig);
   },
 
@@ -78,9 +80,14 @@ module.exports = {
     );
 
     generator.fs.copyTpl(
-      generator.templatePath("common", ".gitkeep"),
-      generator.destinationPath("tests", "resources", "share", ".gitkeep"),
+      generator.templatePath("common", "sts.env"),
+      generator.destinationPath(".sts.env"),
       context
+    );
+
+    generator.fs.copy(
+      generator.templatePath("common", ".gitkeep"),
+      generator.destinationPath("tests", "resources", "share", ".gitkeep")
     );
 
     generator.fs.copy(
@@ -96,11 +103,6 @@ module.exports = {
     generator.fs.copy(
       generator.templatePath("common", "env"),
       generator.destinationPath(".env")
-    );
-
-    generator.fs.copy(
-      generator.templatePath("common", "sts.env"),
-      generator.destinationPath(".sts.env")
     );
 
     generator.fs.copy(

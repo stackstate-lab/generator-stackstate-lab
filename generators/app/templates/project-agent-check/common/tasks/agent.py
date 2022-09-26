@@ -12,6 +12,7 @@ STS_URL = os.getenv('STS_URL')
 if STS_API_KEY is None or STS_URL is None:
     raise Exception(f"STS_API_KEY ({STS_API_KEY}) and STS_URL({STS_URL}) are required.")
 
+
 AGENT_DOCKER_CMD = ["docker", "run", "--rm", "-it", "-v", f"{PROJECT_DIR}/build/agent:/etc/stackstate-agent",
 "-e", f"STS_API_KEY={STS_API_KEY}",
 "-e", f"STS_STS_URL={STS_URL}",
@@ -21,18 +22,18 @@ if os.getenv('CURL_CA_BUNDLE'):
    AGENT_DOCKER_CMD.extend(["-e", f"CURL_CA_BUNDLE={os.getenv('CURL_CA_BUNDLE')}"]),
 
 AGENT_DOCKER_CMD.append(TARGET_IMAGE)
-       
+
 def get_pyproject():
     return toml.load(Path.joinpath(PROJECT_DIR, "pyproject.toml"))
-    
+
 def perform_dist():
     pyproject = get_pyproject()
     commands = """
     rm -rf build/dist
     mkdir -p build/dist/checks.d build/dist/conf.d dist
-    cp -r src/data/conf.d build/dist/ 
+    cp -r src/data/conf.d build/dist/
     py-backwards -i src -o build/dist/checks.d -t 2.7
-    pdm export --prod  -o build/dist/requirements.txt 
+    pdm export --prod  -o build/dist/requirements.txt
     cp src/data/install.sh build/dist
     cat <<EOF > build/dist/install.sh
     #!/bin/bash
@@ -62,7 +63,7 @@ def prepare_agent_workspace():
     cp tests/resources/stackstate.yaml build/agent/
     cp -r tests/resources/share build/agent
     py-backwards -i src -o build/agent/checks.d -t 2.7
-    pdm export --prod  -o build/agent/requirements.txt 
+    pdm export --prod  -o build/agent/requirements.txt
     """
     subprocess.check_call(commands, shell=True, executable='/bin/bash', cwd=PROJECT_DIR)
 
@@ -84,6 +85,10 @@ def run_check(check_name):
 
 def run_agent():
     prepare_agent_workspace()
+    # Check user changed template placeholders.
+    if STS_API_KEY == "xxxx" or STS_URL == "https://stackstate.mycompany.com/receiver/stsAgent":
+      raise Exception(f"Please update default STS_API_KEY ({STS_API_KEY}) and STS_URL({STS_URL}) in '.sts.env' file.")
+
     command = []
     command.extend(AGENT_DOCKER_CMD)
     command.append("/opt/stackstate-agent/bin/run-agent.sh")
@@ -95,13 +100,13 @@ def _execute(command):
                          stdout=subprocess.PIPE,
                          stderr=subprocess.STDOUT,
                          universal_newlines=False)  # \r goes through
- 
+
         nice_stdout = open(os.dup(p.stdout.fileno()), newline='')  # re-open to get \r recognized as new line
         for line in nice_stdout:
             yield line, p.poll()
-    
+
         yield "", p.wait()
- 
+
     for l, rc in run_command():
         print(l, end="", flush=True)
     return rc

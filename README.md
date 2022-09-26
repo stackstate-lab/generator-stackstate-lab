@@ -39,6 +39,42 @@ To launch the generator simply type:
 yo stackstate-lab
 ```
 
+## Command line
+
+```
+Usage:
+  yo stackstate-lab:app [<destination>] [options]
+
+Generates StackState extension and customization projects ready for development.
+
+Options:
+  -h,     --help                # Print the generator's options and usage
+          --skip-cache          # Do not remember prompt answers                                                             Default: false
+          --skip-install        # Do not automatically install dependencies                                                  Default: false
+          --force-install       # Fail on install dependencies error                                                         Default: false
+          --ask-answered        # Show prompts for already configured options                                                Default: false
+  -t,     --projectType         # agent-check...
+  -q,     --quick               # Quick mode, skip all optional prompts and use defaults
+  -n,     --projectName         # Display name of the project
+          --projectDescription  # Description of the project
+          --url                 # StackState receiver api url. Example 'https://stackstate.mycompany.com/receiver/stsAgent'
+          --apiKey              # StackState Api Key
+  -acn,   --agentCheckName      # Name of the agent check
+          --gitInit             # Initialize a git repo
+
+Arguments:
+  destination  #
+    The folder to create the project in, absolute or relative to the current working directory.
+    Use '.' for the current folder. If not provided, defaults to a folder with the extension display name.
+    Type: String  Required: false
+
+Example usages:
+  yo stackstate-lab                               # Create project in a folder with the project's name as prompted in the generator.
+  yo stackstate-lab .                             # Create project in current folder
+  yo stackstate-lab -acn=Hello -t=agent-check -q  # Create an Agent check project, skip prompts, use defaults.
+
+```
+
 ## Run Generator using Docker
 
 If you don't want to install nodejs or any node packages, use this method to containerize the generator.
