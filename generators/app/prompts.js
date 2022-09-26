@@ -1,4 +1,3 @@
-const validator = require("./validator");
 const path = require("path");
 const _ = require("lodash");
 const sanitize = require("sanitize-filename");
@@ -99,12 +98,12 @@ exports.askForProjectDescription = (generator, projectConfig) => {
 exports.askForStackStateReceiverUrl = (generator, projectConfig) => {
   let stsUrl = generator.options.url;
   if (stsUrl) {
-    projectConfig.stsUrl = stsUrl;
+    projectConfig.url = stsUrl;
     return Promise.resolve();
   }
 
   if (generator.options.quick) {
-    projectConfig.stsUrl = "https://stackstate.mycompany.com/receiver/stsAgent";
+    projectConfig.url = "https://stackstate.mycompany.com/receiver/stsAgent";
     return Promise.resolve();
   }
 
@@ -123,12 +122,12 @@ exports.askForStackStateReceiverUrl = (generator, projectConfig) => {
 exports.askForStackStateApiKey = (generator, projectConfig) => {
   let stsApiKey = generator.options.apiKey;
   if (stsApiKey) {
-    projectConfig.stsApiKey = stsApiKey;
+    projectConfig.apiKey = stsApiKey;
     return Promise.resolve();
   }
 
   if (generator.options.quick) {
-    projectConfig.stsApiKey = "xxxx";
+    projectConfig.apiKey = "xxxx";
     return Promise.resolve();
   }
 
@@ -140,9 +139,10 @@ exports.askForStackStateApiKey = (generator, projectConfig) => {
       default: "xxxx"
     })
     .then(answer => {
-      projectConfig.stsApiKey = answer.apiKey;
+      projectConfig.apiKey = answer.apiKey;
     });
 };
+
 /**
  * @param {import('yeoman-generator')} generator
  * @param {Object} projectConfig
