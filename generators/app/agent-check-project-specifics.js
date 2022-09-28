@@ -1,5 +1,3 @@
-const _ = require("lodash");
-
 /**
  * @param {import('yeoman-generator')} generator
  * @param {Object} projectConfig
