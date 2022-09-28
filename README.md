@@ -61,9 +61,10 @@ Options:
           --apiKey              # StackState Api Key
   -acn,   --agentCheckName      # Name of the agent check
           --gitInit             # Initialize a git repo
+          --useEtlFramework     # Use StackState ETL Agent Framework
 
 Arguments:
-  destination  #
+  destination  # 
     The folder to create the project in, absolute or relative to the current working directory.
     Use '.' for the current folder. If not provided, defaults to a folder with the extension display name.
     Type: String  Required: false
@@ -72,7 +73,7 @@ Example usages:
   yo stackstate-lab                               # Create project in a folder with the project's name as prompted in the generator.
   yo stackstate-lab .                             # Create project in current folder
   yo stackstate-lab -acn=Hello -t=agent-check -q  # Create an Agent check project, skip prompts, use defaults.
-
+  yo stackstate-lab -acn=Hello -t=agent-check --useEtlFramework -q  # Create an ETL Agent check project, skip prompts, use defaults.
 ```
 
 ## Run Generator using Docker

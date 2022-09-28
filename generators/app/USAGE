@@ -2,3 +2,4 @@ Example usages:
   yo stackstate-lab                               # Create project in a folder with the project's name as prompted in the generator.
   yo stackstate-lab .                             # Create project in current folder
   yo stackstate-lab -acn=Hello -t=agent-check -q  # Create an Agent check project, skip prompts, use defaults.
+  yo stackstate-lab -acn=Hello -t=agent-check --useEtlFramework -q  # Create an ETL Agent check project, skip prompts, use defaults.
