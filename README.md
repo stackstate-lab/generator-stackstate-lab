@@ -12,21 +12,18 @@ npm install -g yo generator-stackstate-lab
 
 ## Install pre-requisites for generated projects
 
-Install [PDM](https://pdm.fming.dev/latest/#installation) and [Gradle](https://gradle.org/install):
+Install [PDM](https://pdm.fming.dev/latest/#installation):
 
 ### Linux
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/pdm-project/pdm/main/install-pdm.py | python3 -
-curl -s "https://get.sdkman.io" | bash
-source "$HOME/.sdkman/bin/sdkman-init.sh"
-sdk install gradle
 ```
 
 ### macOS
 
 ```bash
-brew install pdm gradle
+brew install pdm
 ```
 
 ## Run Yo Code
