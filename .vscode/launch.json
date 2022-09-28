@@ -4,7 +4,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "stackstate-lab generate",
+      "name": "stackstate-lab generate basic",
       "program": "~/.nvm/versions/node/v17.4.0/bin/yo",
       "timeout": 100000,
       "args": [
@@ -15,6 +15,22 @@
           ],
       "cwd": "${workspaceFolder}/temp/",
       "console": "integratedTerminal"
-  }
+  },
+  {
+    "type": "node",
+    "request": "launch",
+    "name": "stackstate-lab generate etl",
+    "program": "~/.nvm/versions/node/v17.4.0/bin/yo",
+    "timeout": 100000,
+    "args": [
+        "stackstate-lab",
+        "-q",
+        "--useEtlFramework",
+        "-t",
+        "agent-check"
+        ],
+    "cwd": "${workspaceFolder}/temp/",
+    "console": "integratedTerminal"
+}
   ]
 }

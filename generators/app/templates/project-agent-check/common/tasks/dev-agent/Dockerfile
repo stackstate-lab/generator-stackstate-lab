@@ -1,6 +1,10 @@
 FROM 'stackstate/stackstate-agent-2:latest'
 RUN apt update && \
     apt-get install -yq iputils-ping libkrb5-3 gcc g++
+<% if (useEtlFramework) { %>
+RUN /opt/stackstate-agent/embedded/bin/pip install https://github.com/stackstate-lab/stackstate-etl/releases/download/v0.2.0/stackstate-etl-py27-0.2.0.tar.gz
+RUN /opt/stackstate-agent/embedded/bin/pip install https://github.com/stackstate-lab/stackstate-etl-agent-check/releases/download/v0.2.0/stackstate-etl-agent-check-py27-0.2.0.tar.gz
+<% } %>
 RUN echo '#!/bin/bash\n\
     if test -f "/etc/stackstate-agent/requirements.txt"; then\n\
         echo "Installing requirement"\n\
@@ -8,7 +12,7 @@ RUN echo '#!/bin/bash\n\
         echo "Done installing dependencies"\n\
     fi\n\
     if test -f "/etc/stackstate-agent/share/install.sh"; then\n\
-        echo "Running command /etc/stackstate-agent/share/install.sh"\n\ 
+        echo "Running command /etc/stackstate-agent/share/install.sh"\n\
         /etc/stackstate-agent/share/install.sh\n\
         echo "Done running command"\n\
     fi\n\
@@ -22,7 +26,7 @@ RUN echo '#!/bin/bash\n\
         echo "Done running additional installation"\n\
     fi\n\
     if test -f "/etc/stackstate-agent/share/install.sh"; then\n\
-        echo "Running command /etc/stackstate-agent/share/install.sh"\n\ 
+        echo "Running command /etc/stackstate-agent/share/install.sh"\n\
         /etc/stackstate-agent/share/install.sh\n\
         echo "Done running additional installation"\n\
     fi\n\

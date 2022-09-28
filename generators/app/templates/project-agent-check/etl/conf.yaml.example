@@ -1,0 +1,15 @@
+init_config:
+
+instances:
+  - instance_url: "<%=snakeCaseAgentCheckName%>"
+    instance_type: <%=snakeCaseAgentCheckName%>
+    collection_interval: 300
+    <%=snakeCaseAgentCheckName%>:
+      url: "http://host.docker.internal:3005"
+      username: "admin"
+      password: "2zrRdQ8PYpK5Bsz"
+    domain: "<%=startCaseAgentCheckName%>"
+    layer: "Machines"
+    etl:
+      refs:
+        - "module_dir://<%=basePkg%>.templates"

@@ -12,8 +12,7 @@ const projectGenerators = [projectAgentCheck];
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
-    this.description =
-      "Generates StackState extension and customization projects ready for development.";
+    this.description = "Generates StackState extension and customization projects ready for development.";
 
     this.argument("destination", {
       type: String,
@@ -37,38 +36,18 @@ module.exports = class extends Generator {
       description: "Quick mode, skip all optional prompts and use defaults"
     });
 
-    this.option("projectName", {
-      type: String,
-      alias: "n",
-      description: "Display name of the project"
-    });
-
-    this.option("projectDescription", {
-      type: String,
-      description: "Description of the project"
-    });
+    this.option("projectName", { type: String, alias: "n", description: "Display name of the project" });
+    this.option("projectDescription", { type: String, description: "Description of the project" });
 
     this.option("url", {
       type: String,
-      description:
-        "StackState receiver api url. Example 'https://stackstate.mycompany.com/receiver/stsAgent'"
+      description: "StackState receiver api url. Example 'https://stackstate.mycompany.com/receiver/stsAgent'"
     });
 
-    this.option("apiKey", {
-      type: String,
-      description: "StackState Api Key"
-    });
-
-    this.option("agentCheckName", {
-      type: String,
-      alias: "acn",
-      description: "Name of the agent check"
-    });
-
-    this.option("gitInit", {
-      type: Boolean,
-      description: `Initialize a git repo`
-    });
+    this.option("apiKey", { type: String, description: "StackState Api Key" });
+    this.option("agentCheckName", { type: String, alias: "acn", description: "Name of the agent check" });
+    this.option("gitInit", { type: Boolean, description: `Initialize a git repo` });
+    this.option("useEtlFramework", { type: Boolean, description: `Use StackState ETL Agent Framework` });
 
     this.projectConfig = Object.create(null);
     this.projectGenerator = undefined;
@@ -90,9 +69,7 @@ module.exports = class extends Generator {
     // Ask for extension type
     const projectType = this.options.projectType;
     if (projectType) {
-      const projectGenerator = projectGenerators.find(
-        g => g.aliases.indexOf(projectType) !== -1
-      );
+      const projectGenerator = projectGenerators.find(g => g.aliases.indexOf(projectType) !== -1);
       if (projectGenerator) {
         this.projectConfig.type = projectGenerator.id;
       } else {
@@ -124,9 +101,7 @@ module.exports = class extends Generator {
       ).type;
     }
 
-    this.projectGenerator = projectGenerators.find(
-      g => g.id === this.projectConfig.type
-    );
+    this.projectGenerator = projectGenerators.find(g => g.id === this.projectConfig.type);
     try {
       await this.projectGenerator.prompting(this, this.projectConfig);
     } catch (_) {
@@ -141,9 +116,7 @@ module.exports = class extends Generator {
     }
 
     if (!this.options.destination && !this.projectGenerator.update) {
-      this.destinationRoot(
-        this.destinationPath(this.projectConfig.projectName)
-      );
+      this.destinationRoot(this.destinationPath(this.projectConfig.projectName));
     }
 
     this.env.cwd = this.destinationPath();
@@ -151,9 +124,7 @@ module.exports = class extends Generator {
     this.log();
     this.log(`Writing in ${this.destinationPath()}...`);
 
-    this.sourceRoot(
-      path.join(__dirname, "./templates/" + this.projectConfig.type)
-    );
+    this.sourceRoot(path.join(__dirname, "./templates/" + this.projectConfig.type));
 
     return this.projectGenerator.writing(this, this.projectConfig);
   }
@@ -182,9 +153,7 @@ module.exports = class extends Generator {
       this.log("");
       this.log("Your project has been updated!");
       this.log("");
-      this.log(
-        "To start editing with Visual Studio Code, use the following commands:"
-      );
+      this.log("To start editing with Visual Studio Code, use the following commands:");
       this.log("");
       this.log("     code .");
 
@@ -200,9 +169,7 @@ module.exports = class extends Generator {
 
     this.log("");
 
-    this.log(
-      "Your project " + this.projectConfig.projectName + " has been created!"
-    );
+    this.log("Your project " + this.projectConfig.projectName + " has been created!");
     if (this.projectGenerator.endMessage) {
       this.projectGenerator.endMessage(this, this.projectConfig);
     }

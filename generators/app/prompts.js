@@ -147,6 +147,34 @@ exports.askForStackStateApiKey = (generator, projectConfig) => {
  * @param {import('yeoman-generator')} generator
  * @param {Object} projectConfig
  */
+exports.askForEtlFramework = (generator, projectConfig) => {
+  let useEtlFramework = generator.options.useEtlFramework;
+  if (typeof useEtlFramework === "boolean") {
+    projectConfig.useEtlFramework = Boolean(useEtlFramework);
+    return Promise.resolve();
+  }
+
+  if (generator.options.quick) {
+    projectConfig.useEtlFramework = false;
+    return Promise.resolve();
+  }
+
+  return generator
+    .prompt({
+      type: "confirm",
+      name: "useEtlFramework",
+      message: "Use StackState ETL Agent Framework?",
+      default: false
+    })
+    .then(gitAnswer => {
+      projectConfig.useEtlFramework = gitAnswer.useEtlFramework;
+    });
+};
+
+/**
+ * @param {import('yeoman-generator')} generator
+ * @param {Object} projectConfig
+ */
 exports.askForGit = (generator, projectConfig) => {
   let gitInit = generator.options.gitInit;
   if (typeof gitInit === "boolean") {

@@ -1,0 +1,24 @@
+etl:
+  queries:
+    - name: <%=snakeCaseAgentCheckName%>_devices
+      query: "<%=snakeCaseAgentCheckName%>.get_cm_object('device')['items']"
+      template_refs:
+        - <%=snakeCaseAgentCheckName%>_device_template
+  template:
+    components:
+      - name: <%=snakeCaseAgentCheckName%>_device_template
+        spec:
+          name: "$.name"
+          type: "<%=snakeCaseAgentCheckName%>-device"
+          uid: "|uid('<%=snakeCaseAgentCheckName%>', 'device', item['name'])"
+          layer: "<%=startCaseAgentCheckName%> Devices"
+          identifiers:
+            - "|uid('<%=snakeCaseAgentCheckName%>', 'device:ip', item['managementIp'])"
+          custom_properties:
+            activeModules: "$.activeModules"
+            hostname: "$.hostname"
+            managementIp: "$.managementIp"
+            timeZone: "$.timeZone"
+            cert: "$.cert"
+            marketingName: "$.marketingName"
+            version: "|'%s v%s (Build %s)' % (item['product'], item['version'], item['build'])"

@@ -1,4 +1,5 @@
 const prompts = require("./prompts");
+const project = require("./agent-check-project-specifics");
 const _ = require("lodash");
 
 module.exports = {
@@ -16,6 +17,7 @@ module.exports = {
     await prompts.askForAgentCheckName(generator, projectConfig);
     await prompts.askForStackStateReceiverUrl(generator, projectConfig);
     await prompts.askForStackStateApiKey(generator, projectConfig);
+    await prompts.askForEtlFramework(generator, projectConfig);
     await prompts.askForGit(generator, projectConfig);
   },
 
@@ -24,86 +26,30 @@ module.exports = {
    * @param {Object} projectConfig
    */
   writing: (generator, projectConfig) => {
-    const context = { ...projectConfig, _: _ };
+    const context = {
+      ...projectConfig,
+      _: _,
+      snakeCaseAgentCheckName: _.snakeCase(projectConfig.agentCheckName),
+      startCaseAgentCheckName: _.startCase(projectConfig.agentCheckName).replaceAll(" ", "")
+    };
     generator.fs.copyTpl(
       generator.templatePath("common", "pyproject.toml"),
       generator.destinationPath("pyproject.toml"),
       context
     );
 
-    generator.fs.copyTpl(
-      generator.templatePath("common", "README.md"),
-      generator.destinationPath("README.md"),
-      context
-    );
-
-    generator.fs.copyTpl(
-      generator.templatePath("basic", "conf.yaml.example"),
-      generator.destinationPath(
-        "src",
-        "data",
-        "conf.d",
-        `${_.snakeCase(projectConfig.agentCheckName)}.d`,
-        "conf.yaml.example"
-      ),
-      context
-    );
-
-    generator.fs.copyTpl(
-      generator.templatePath("basic", "conf.yaml.example"),
-      generator.destinationPath(
-        "src",
-        "data",
-        "conf.d",
-        `${_.snakeCase(projectConfig.agentCheckName)}.d`,
-        "conf.yaml"
-      ),
-      context
-    );
-
-    generator.fs.copyTpl(
-      generator.templatePath("basic", "my_agent.py"),
-      generator.destinationPath(
-        "src",
-        `${_.snakeCase(projectConfig.agentCheckName)}.py`
-      ),
-      context
-    );
-
-    generator.fs.copyTpl(
-      generator.templatePath("basic", "test_my_agent.py"),
-      generator.destinationPath(
-        "tests",
-        `test_${_.snakeCase(projectConfig.agentCheckName)}.py`
-      ),
-      context
-    );
-
-    generator.fs.copyTpl(
-      generator.templatePath("common", "sts.env"),
-      generator.destinationPath(".sts.env"),
-      context
-    );
+    generator.fs.copyTpl(generator.templatePath("common", "sts.env"), generator.destinationPath(".sts.env"), context);
 
     generator.fs.copy(
       generator.templatePath("common", ".gitkeep"),
       generator.destinationPath("tests", "resources", "share", ".gitkeep")
     );
 
-    generator.fs.copy(
-      generator.templatePath("common", "vscode"),
-      generator.destinationPath(".vscode")
-    );
+    generator.fs.copy(generator.templatePath("common", "vscode"), generator.destinationPath(".vscode"));
 
-    generator.fs.copy(
-      generator.templatePath("common", "tasks"),
-      generator.destinationPath("tasks")
-    );
+    generator.fs.copyTpl(generator.templatePath("common", "tasks"), generator.destinationPath("tasks"), context);
 
-    generator.fs.copy(
-      generator.templatePath("common", "env"),
-      generator.destinationPath(".env")
-    );
+    generator.fs.copy(generator.templatePath("common", "env"), generator.destinationPath(".env"));
 
     generator.fs.copy(
       generator.templatePath("common", "stackstate.yaml"),
@@ -111,10 +57,13 @@ module.exports = {
     );
 
     if (projectConfig.gitInit) {
-      generator.fs.copy(
-        generator.templatePath("common", "gitignore"),
-        generator.destinationPath(".gitignore")
-      );
+      generator.fs.copy(generator.templatePath("common", "gitignore"), generator.destinationPath(".gitignore"));
+    }
+
+    if (projectConfig.useEtlFramework) {
+      project.writeEtlProject(generator, context);
+    } else {
+      project.writeBasicProject(generator, context);
     }
 
     projectConfig.installDependencies = true;
@@ -131,9 +80,7 @@ module.exports = {
     generator.log("    pdm test");
     generator.log("    pdm buildAgent");
     generator.log("    pdm check");
-    generator.log(
-      "Before running the agent, make sure to set connection details in '.sts.env'"
-    );
+    generator.log("Before running the agent, make sure to set connection details in '.sts.env'");
     generator.log("    pdm serve");
     generator.log("");
   }

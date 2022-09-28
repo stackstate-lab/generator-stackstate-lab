@@ -57,13 +57,16 @@ StackState <%= _.startCase(projectName) %> Agent Check is developed in Python 3,
 
 ### Setup local code repository
 
-
+```bash 
+git clone git@github.com:xxx/<%= _.snakeCase(projectName) %>.git
+cd <%= _.snakeCase(projectName) %>
+pdm install 
+```
 The `pdm install` command sets up all the projects required dependencies using [PEP 582](https://peps.python.org/pep-0582/) instead of virtual environments.
-
 
 ### Prepare local _.sts.env_ file
 
-The `.sts.env` file run the StackState Agent container. Remember to change the StackState url and api key for your environment.
+The `.sts.env` file is used to run the StackState Agent container. Remember to change the StackState url and api key for your environment.
 
 ```bash
 
@@ -82,8 +85,14 @@ cp ./src/data/conf.d/<%= _.snakeCase(agentCheckName)%>.d/conf.yaml.example ./src
 
 ### Code styling and linting
 
+
+- [Black](https://black.readthedocs.io/en/stable/) for formatting
+- [isort](https://pycqa.github.io/isort/) to sort imports
+- [Flakehell](https://flakehell.readthedocs.io/) for linting
+- [mypy](https://mypy.readthedocs.io/en/stable/) for static type checking
+
 ```bash
-pdm codeStyle
+pdm format
 ```
 
 ### Running unit tests

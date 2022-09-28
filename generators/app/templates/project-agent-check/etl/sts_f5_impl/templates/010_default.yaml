@@ -1,0 +1,6 @@
+etl:
+  datasources:
+    - name: <%=snakeCaseAgentCheckName%>
+      module: <%=basePkg%>.client
+      cls: <%=clientName%>
+      init: "<%=clientName%>(conf.<%=snakeCaseAgentCheckName%>, log)"

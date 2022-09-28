@@ -32,6 +32,9 @@ def perform_dist():
     rm -rf build/dist
     mkdir -p build/dist/checks.d build/dist/conf.d dist
     cp -r src/data/conf.d build/dist/
+    cp -r src/ build/dist/checks.d
+    rm -rf build/dist/data
+    find build/dist/checks.d -name "*.py" -exec rm -rf {}\;
     py-backwards -i src -o build/dist/checks.d -t 2.7
     pdm export --prod  -o build/dist/requirements.txt
     cp src/data/install.sh build/dist
@@ -62,6 +65,9 @@ def prepare_agent_workspace():
     cp -r src/data/conf.d build/agent/
     cp tests/resources/stackstate.yaml build/agent/
     cp -r tests/resources/share build/agent
+    cp -r src/ build/agent/checks.d
+    rm -rf build/agent/data
+    find build/agent/checks.d -name "*.py" -exec rm -rf {}\;
     py-backwards -i src -o build/agent/checks.d -t 2.7
     pdm export --prod  -o build/agent/requirements.txt
     """
