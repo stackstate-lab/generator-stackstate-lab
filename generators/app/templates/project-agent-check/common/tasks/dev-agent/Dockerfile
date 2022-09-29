@@ -3,7 +3,7 @@ RUN apt update && \
     apt-get install -yq iputils-ping libkrb5-3 gcc g++
 <% if (useEtlFramework) { %>
 RUN /opt/stackstate-agent/embedded/bin/pip install https://github.com/stackstate-lab/stackstate-etl/releases/download/v0.2.0/stackstate-etl-py27-0.2.0.tar.gz
-RUN /opt/stackstate-agent/embedded/bin/pip install https://github.com/stackstate-lab/stackstate-etl-agent-check/releases/download/v0.2.0/stackstate-etl-agent-check-py27-0.2.0.tar.gz
+RUN /opt/stackstate-agent/embedded/bin/pip install https://github.com/stackstate-lab/stackstate-etl-agent-check/releases/download/v0.2.1/stackstate-etl-agent-check-py27-0.2.1.tar.gz
 <% } %>
 RUN echo '#!/bin/bash\n\
     if test -f "/etc/stackstate-agent/requirements.txt"; then\n\
