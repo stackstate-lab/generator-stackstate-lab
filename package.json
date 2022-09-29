@@ -15,7 +15,7 @@
     "url": "https://github.com/stackstate-lab/generator-stackstate-lab/issues"
   },
   "main": "./generators/app/index.js",
-  "homepage": "http://www.stackstate.com",
+  "homepage": "https://github.com/stackstate-lab/generator-stackstate-lab",
   "license": "MIT",
   "author": {
     "name": "StackState Lab Team",

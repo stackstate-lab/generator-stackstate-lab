@@ -1,6 +1,6 @@
 from schematics import Model
 from schematics.types import IntType, StringType
-from six import PY3
+from six import PY3, PY2
 from stackstate_checks.base import (
     AgentCheck,
     ConfigurationError,
@@ -68,6 +68,8 @@ class <%= _.startCase(agentCheckName).replaceAll(" ", "")%>Check(AgentCheck):
             ],  # Extra property to see on component properties
         }
 
+        if PY2:
+          self.start_snapshot()
         # Register the component
         self.component(app_id, "application", app_component)
 
@@ -100,6 +102,9 @@ class <%= _.startCase(agentCheckName).replaceAll(" ", "")%>Check(AgentCheck):
             "runs_on",
             {"any": "additional properties and labels"},
         )
+
+        if PY2:
+            self.stop_snapshot()
 
 
     def get_health_stream(self, instance):
