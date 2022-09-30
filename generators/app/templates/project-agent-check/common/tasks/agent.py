@@ -28,6 +28,22 @@ def get_pyproject():
     return toml.load(Path.joinpath(PROJECT_DIR, "pyproject.toml"))
 
 
+def install_agent_checks_base(version="1.22.0"):
+    if not os.path.exists(Path.joinpath(PROJECT_DIR, '__pypackages__', '3.9', 'lib', 'stackstate_checks')):
+        print("Installing stackstate_checks_base package...")
+        command = ['pip', 'install',
+                   (f'git+https://github.com/StackVista/stackstate-agent-integrations.git@{version}'
+                    '#egg=stackstate_checks_base&subdirectory=stackstate_checks_base'
+                    ),
+                   '-t',
+                   './__pypackages__/3.9/lib',
+                   '--src',
+                   './__pypackages__/3.9/src',
+                   '--upgrade']
+        subprocess.check_output(command, cwd=PROJECT_DIR)
+        print("🎉 All complete!")
+
+
 def perform_dist():
     pyproject = get_pyproject()
     commands = """
