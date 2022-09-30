@@ -1,4 +1,4 @@
-# StackState <%= _.startCase(projectName) %> Agent Check
+# StackState <%=startCaseAgentCheckName%> Agent Check
 
 ## Overview
 
@@ -10,16 +10,16 @@ A custom [StackState Agent Check](https://docs.stackstate.com/develop/developer-
 From the StackState Agent 2 linux machine, run
 
 ```bash 
-curl -L https://github.com/xxx/<%= _.snakeCase(projectName) %>/releases/download/v0.1.0/<%= _.snakeCase(projectName) %> -agent-check-0.1.0.zip -o <%= _.snakeCase(projectName) %>-agent-check.zip
-tar -xvf <%= _.snakeCase(projectName) %>-agent-check.zip
+curl -L https://github.com/xxx/<%=projectName%>/releases/download/v0.1.0/<%=snakeCaseProjectName%>-0.1.0.zip -o <%=snakeCaseProjectName%>.zip
+tar -xvf <%=snakeCaseProjectName%>.zip
 ./install.sh
 ```
 
 Setup `conf.yaml` on agent machine.
 
 ```bash 
-cp /etc/stackstate-agent/conf.d/<%= _.snakeCase(agentCheckName) %>.d/conf.yaml.example /etc/stackstate-agent/conf.d/<%= _.snakeCase(agentCheckName) %>.d/conf.yaml
-chown stackstate-agent:stackstate-agent /etc/stackstate-agent/conf.d/<%= _.snakeCase(agentCheckName) %>.d/conf.yaml
+cp /etc/stackstate-agent/conf.d/<%=snakeCaseAgentCheckName%>.d/conf.yaml.example /etc/stackstate-agent/conf.d/<%=snakeCaseAgentCheckName%>.d/conf.yaml
+chown stackstate-agent:stackstate-agent /etc/stackstate-agent/conf.d/<%=snakeCaseAgentCheckName%>.d/conf.yaml
 vi conf.yaml
 ```
 
@@ -29,8 +29,8 @@ Change the properties to match your environment.
 init_config:
 
 instances:
-  - instance_url: "<%= _.snakeCase(agentCheckName)%>"
-    instance_type: "<%= _.snakeCase(agentCheckName)%>_check"
+  - instance_url: "<%=snakeCaseAgentCheckName%>"
+    instance_type: "<%=snakeCaseAgentCheckName%>"
     collection_interval: 300
 
 ```
@@ -38,14 +38,14 @@ instances:
 Run the agent check to verify configured correctly.
 
 ```bash
-sudo -u stackstate-agent stackstate-agent check <%= _.snakeCase(agentCheckName)%> -l info
+sudo -u stackstate-agent stackstate-agent check <%=snakeCaseAgentCheckName%> -l info
 ```
 
 ## Development
 
 This project is generated using [Yeoman](https://yeoman.io/) and the [StackState Generator](https://github.com/stackstate-lab/generator-stackstate-lab)
 
-StackState <%= _.startCase(projectName) %> Agent Check is developed in Python 3, and is transpiled to Python 2.7 for deployment to the StackState Agent v2 environment.
+StackState <%=startCaseAgentCheckName%> Agent Check is developed in Python 3, and is transpiled to Python 2.7 for deployment to the StackState Agent v2 environment.
 
 ---
 ### Prerequisites:
@@ -104,7 +104,7 @@ pdm test
 ### Build
 
 The build will transpile the custom agent check to Python 2.7 and creates and install shell script packaged into
-the `dist/<%= _.snakeCase(agentCheckName)%>-agent-check-0.1.0.zip` 
+the `dist/<%=snakeCaseProjectName%>-0.1.0.zip` 
 
 ```bash
 pdm build

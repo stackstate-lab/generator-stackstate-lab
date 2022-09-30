@@ -30,7 +30,9 @@ module.exports = {
       ...projectConfig,
       _: _,
       snakeCaseAgentCheckName: _.snakeCase(projectConfig.agentCheckName),
-      startCaseAgentCheckName: _.startCase(projectConfig.agentCheckName).replaceAll(" ", "")
+      snakeCaseProjectName: _.snakeCase(projectConfig.projectName),
+      startCaseAgentCheckName: _.startCase(projectConfig.agentCheckName).replaceAll(" ", ""),
+      startCaseProjectName: _.startCase(projectConfig.projectName).replaceAll(" ", "")
     };
     generator.fs.copyTpl(
       generator.templatePath("common", "pyproject.toml"),

@@ -1,11 +1,11 @@
-# StackState <%= _.startCase(projectName) %> Agent Check
+# StackState <%=startCaseAgentCheckName%> Agent Check
 
 ## Overview
 
 A custom [StackState Agent Check](https://docs.stackstate.com/develop/developer-guides/agent_check/agent_checks) that makes it possible to integrate [XXXX](https://www.f5.com/products/big-ip-services/local-traffic-manager) with StackState.
 
 The integration uses the [StackState ETL framework](https://stackstate-lab.github.io/stackstate-etl/) 
-to define templates to map Nutanix Rest Api entities to StackState Components, Relations, Events,
+to define templates to map <%=startCaseAgentCheckName%> entities to StackState Components, Relations, Events,
 Metrics and Health Syncs
 
 See [StackState ETL documentation](https://stackstate-lab.github.io/stackstate-etl/) for more information.
@@ -16,16 +16,16 @@ See [StackState ETL documentation](https://stackstate-lab.github.io/stackstate-e
 From the StackState Agent 2 linux machine, run
 
 ```bash 
-curl -L https://github.com/xxx/<%= _.snakeCase(projectName) %>/releases/download/v0.1.0/<%= _.snakeCase(projectName) %> -agent-check-0.1.0.zip -o <%= _.snakeCase(projectName) %>-agent-check.zip
-tar -xvf <%= _.snakeCase(projectName) %>-agent-check.zip
+curl -L https://github.com/xxx/<%=projectName%>/releases/download/v0.1.0/<%=snakeCaseProjectName%>-0.1.0.zip -o <%=snakeCaseProjectName%>.zip
+tar -xvf <%=snakeCaseProjectName%>.zip
 ./install.sh
 ```
 
 Setup `conf.yaml` on agent machine.
 
 ```bash 
-cp /etc/stackstate-agent/conf.d/<%= _.snakeCase(agentCheckName) %>.d/conf.yaml.example /etc/stackstate-agent/conf.d/<%= _.snakeCase(agentCheckName) %>.d/conf.yaml
-chown stackstate-agent:stackstate-agent /etc/stackstate-agent/conf.d/<%= _.snakeCase(agentCheckName) %>.d/conf.yaml
+cp /etc/stackstate-agent/conf.d/<%=snakeCaseAgentCheckName%>.d/conf.yaml.example /etc/stackstate-agent/conf.d/<%=snakeCaseAgentCheckName%>.d/conf.yaml
+chown stackstate-agent:stackstate-agent /etc/stackstate-agent/conf.d/<%=snakeCaseAgentCheckName%>.d/conf.yaml
 vi conf.yaml
 ```
 
@@ -83,7 +83,7 @@ APIs to syn data from,
 
 This project is generated using [Yeoman](https://yeoman.io/) and the [StackState Generator](https://github.com/stackstate-lab/generator-stackstate-lab)
 
-StackState <%= _.startCase(projectName) %> Agent Check is developed in Python 3, and is transpiled to Python 2.7 for deployment to the StackState Agent v2 environment.
+StackState <%=startCaseAgentCheckName%> Agent Check is developed in Python 3, and is transpiled to Python 2.7 for deployment to the StackState Agent v2 environment.
 
 ---
 ### Prerequisites:
@@ -142,7 +142,7 @@ pdm test
 ### Build
 
 The build will transpile the custom agent check to Python 2.7 and creates and install shell script packaged into
-the `dist/<%=snakeCaseAgentCheckName%>-agent-check-0.1.0.zip` 
+the `dist/<%=snakeCaseProjectName%>-0.1.0.zip` 
 
 ```bash
 pdm build
