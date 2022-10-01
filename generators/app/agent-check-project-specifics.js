@@ -23,7 +23,11 @@ exports.writeBasicProject = (generator, context) => {
     context
   );
 
-  generator.fs.copyTpl(generator.templatePath("basic"), generator.destinationPath("src", "basic"), context);
+  generator.fs.copyTpl(
+    generator.templatePath("basic", "test_my_agent.py"),
+    generator.destinationPath("tests", `test_${context.snakeCaseAgentCheckName}.py`),
+    context
+  );
 };
 
 /**
