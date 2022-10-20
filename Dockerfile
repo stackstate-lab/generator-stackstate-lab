@@ -1,4 +1,4 @@
-ROM node:lts-alpine3.12
+FROM node:lts-alpine3.12
 LABEL Maintainer="rnaidoo@stackstate.com"
 
 # Installing GIT
